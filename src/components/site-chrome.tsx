@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 
 const NAV_LINKS = [
   { href: "/presencia", label: "Presencia" },
@@ -48,6 +49,13 @@ function LogoMark() {
 
 export function SiteNav() {
   const pathname = usePathname();
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  // Cierra el menú móvil cada vez que cambia de ruta (no se cierra solo con
+  // el evento de click del Link porque la navegación ocurre en el mismo tick).
+  useEffect(() => {
+    setMenuOpen(false);
+  }, [pathname]);
 
   return (
     <>
@@ -87,7 +95,54 @@ export function SiteNav() {
           >
             Contáctanos
           </a>
+          {/* Botón de hamburguesa — solo visible por debajo de 1080px (breakpoint lg de Tailwind, 1024px) */}
+          <button
+            type="button"
+            onClick={() => setMenuOpen((v) => !v)}
+            aria-label={menuOpen ? "Cerrar menú" : "Abrir menú"}
+            aria-expanded={menuOpen}
+            className="flex flex-none flex-col items-center justify-center gap-[5px] rounded-[2px] border border-border p-2.5 lg:hidden"
+          >
+            <span
+              className={`block h-[2px] w-5 bg-foreground transition-transform ${
+                menuOpen ? "translate-y-[7px] rotate-45" : ""
+              }`}
+            />
+            <span
+              className={`block h-[2px] w-5 bg-foreground transition-opacity ${
+                menuOpen ? "opacity-0" : "opacity-100"
+              }`}
+            />
+            <span
+              className={`block h-[2px] w-5 bg-foreground transition-transform ${
+                menuOpen ? "-translate-y-[7px] -rotate-45" : ""
+              }`}
+            />
+          </button>
         </div>
+
+        {/* Panel desplegable móvil: enlaces apilados justo debajo del header */}
+        {menuOpen && (
+          <nav className="mt-4 flex flex-col gap-1 border-t border-border pt-4 lg:hidden">
+            {NAV_LINKS.map((link) => {
+              const active =
+                link.href !== "#contacto" && pathname === link.href;
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className={`rounded px-3 py-2.5 text-sm font-medium uppercase tracking-[0.1em] transition-colors ${
+                    active
+                      ? "bg-accent text-accent-ink"
+                      : "text-muted hover:bg-accent hover:text-accent-ink"
+                  }`}
+                >
+                  {link.label}
+                </Link>
+              );
+            })}
+          </nav>
+        )}
       </header>
       <FilmStrip />
     </>
