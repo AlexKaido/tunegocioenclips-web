@@ -7,8 +7,16 @@
   --surface-2: #1c1c1c;
   --border: #2a2a2a;
   --muted: #9a9a9a;
-  --accent: #c8ff4d;
+  --accent: #e8ff2f;
   --accent-ink: #0a0a0a;
+
+  /* Grises adicionales de la dirección cinematográfica (ver README del handoff) */
+  --card-muted: #181818;
+  --subhead-muted: #6b6b6b;
+  --numeral-soft: #5a5a5a;
+  --numeral-dim: #3a3a3a;
+  --whatsapp: #25d366;
+  --error: #ff6b4a;
 }
 
 @theme inline {
@@ -20,6 +28,12 @@
   --color-muted: var(--muted);
   --color-accent: var(--accent);
   --color-accent-ink: var(--accent-ink);
+  --color-card-muted: var(--card-muted);
+  --color-subhead-muted: var(--subhead-muted);
+  --color-numeral-soft: var(--numeral-soft);
+  --color-numeral-dim: var(--numeral-dim);
+  --color-whatsapp: var(--whatsapp);
+  --color-error: var(--error);
 
   --font-sans: var(--font-inter);
   --font-display: var(--font-space-grotesk);
@@ -33,4 +47,215 @@ html {
 body {
   background: var(--background);
   color: var(--foreground);
+}
+
+h1, h2, h3 {
+  text-wrap: balance;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+/* ---- Reveal al scroll (useReveal) ---- */
+[data-reveal] {
+  opacity: 0;
+  transform: translate3d(0, 26px, 0);
+  transition: opacity 780ms cubic-bezier(0.16, 1, 0.3, 1),
+    transform 780ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+[data-reveal].is-revealed {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+/* ---- Cursor magnético ---- */
+[data-magnetic] {
+  transition: transform 240ms cubic-bezier(0.16, 1, 0.3, 1);
+  display: inline-flex;
+}
+
+/* ---- Barra de progreso de scroll ---- */
+.scroll-progress-track {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--border);
+  z-index: 60;
+}
+.scroll-progress-fill {
+  height: 100%;
+  width: 0%;
+  background: var(--accent);
+  transition: width 90ms linear;
+}
+
+/* ---- Cintillo de filmografía (marquee) ---- */
+@keyframes marq {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+.marquee-track {
+  animation: marq 26s linear infinite;
+}
+
+/* ---- Hero Home: ken burns + scanlines ---- */
+@keyframes kb {
+  from {
+    transform: scale(1.02) translate(0, 0);
+  }
+  to {
+    transform: scale(1.16) translate(-1.5%, -1.5%);
+  }
+}
+.kb-slow {
+  animation: kb 26s ease-in-out infinite alternate;
+}
+.scanlines {
+  background-image: repeating-linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.022) 0px,
+    rgba(255, 255, 255, 0.022) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  mix-blend-mode: overlay;
+}
+
+/* ---- Marcas de encuadre (corner marks) ---- */
+@keyframes markIn {
+  from {
+    opacity: 0;
+    transform: scale(1.5);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+.mark-in {
+  animation: markIn 260ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* ---- Indicador "grabando ahora" ---- */
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+.rec-dot {
+  animation: blink 1.6s steps(1, end) infinite;
+}
+
+/* ---- Eyebrow: línea que crece ---- */
+@keyframes grow {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+.eyebrow-line {
+  transform-origin: left;
+  animation: grow 800ms cubic-bezier(0.16, 1, 0.3, 1) 200ms both;
+}
+
+/* ---- H1 por línea: entra desde abajo ---- */
+@keyframes rise {
+  from {
+    transform: translateY(120%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+.rise-line > span {
+  display: inline-block;
+  animation: rise 1000ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* ---- Placeholder de embed (pulso) ---- */
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.4;
+  }
+}
+.pulse-dot {
+  animation: pulse 1.4s ease-in-out infinite;
+}
+
+/* ---- Letterbox de apertura ---- */
+@keyframes lbTop {
+  0%,
+  26% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-100%);
+  }
+}
+@keyframes lbBottom {
+  0%,
+  26% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(100%);
+  }
+}
+.letterbox-top {
+  animation: lbTop 1500ms cubic-bezier(0.76, 0, 0.24, 1) both;
+}
+.letterbox-bottom {
+  animation: lbBottom 1500ms cubic-bezier(0.76, 0, 0.24, 1) both;
+}
+
+/* ---- Logo: triángulo que late ---- */
+@keyframes triPulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.14);
+  }
+}
+.tri-pulse {
+  animation: triPulse 3.4s ease-in-out infinite;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+/* ---- Logo: "Clips" se escribe ---- */
+@keyframes wipeIn {
+  from {
+    clip-path: inset(0 100% -20% 0);
+  }
+  to {
+    clip-path: inset(0 -5% -20% 0);
+  }
+}
+.wipe-in {
+  animation: wipeIn 900ms cubic-bezier(0.16, 1, 0.3, 1) 1400ms both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

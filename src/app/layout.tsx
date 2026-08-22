@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { Inter, Space_Grotesk, Pinyon_Script } from "next/font/google";
 import "./globals.css";
+import { SiteNav, SiteFooter, WhatsAppButton } from "@/components/site-chrome";
+import { ContactForm } from "@/components/contact-form";
+import { ScrollProgress } from "@/components/interactions";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -35,7 +38,12 @@ export default function RootLayout({
       className={`${inter.variable} ${spaceGrotesk.variable} ${pinyonScript.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-background text-foreground font-sans">
-        {children}
+        <ScrollProgress />
+        <SiteNav />
+        <main className="flex flex-1 flex-col">{children}</main>
+        <ContactForm />
+        <SiteFooter />
+        <WhatsAppButton />
       </body>
     </html>
   );

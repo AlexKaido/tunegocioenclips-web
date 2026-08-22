@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { SiteNav, SiteFooter } from "@/components/site-chrome";
 import { Faq } from "@/components/faq";
 import { TikTokEmbed } from "@/components/tiktok-embed";
+import { Reveal } from "@/components/interactions";
 
 export const metadata: Metadata = {
-  title: "Contenido — Retainer de video vertical — Tu negocio en Clips",
+  title: "Servicios y precios — Tu negocio en Clips",
   description:
-    "Retainer mensual de video vertical que mantiene tu presencia llena de gente nueva cada semana. Cupo limitado — trabajo solo, sin equipo.",
+    "Cuatro servicios con precio en la mesa y horas estimadas: foto de producto, sesión de clips, cadencia quincenal y sitio web.",
 };
 
 const CLIENTS = [
@@ -15,6 +15,7 @@ const CLIENTS = [
     name: "Manolo's Salon",
     description:
       "Salón de belleza — clips semanales que convierten seguidores en citas agendadas.",
+    tiktokUrl: "https://www.tiktok.com/@manolossalon",
     videoIds: [
       "7675790097899457812",
       "7662911947821681927",
@@ -25,6 +26,7 @@ const CLIENTS = [
     name: "Chiquitrips",
     description:
       "Agencia de viajes familiares — contenido que convierte curiosidad en reservaciones.",
+    tiktokUrl: "https://www.tiktok.com/@chiquitrips",
     videoIds: [
       "7626517193215331605",
       "7617842758299946261",
@@ -33,125 +35,144 @@ const CLIENTS = [
   },
 ];
 
-const TIERS = [
+const SITES = [
   {
-    name: "One Time",
-    price: "$2,995",
-    cadence: "proyecto único",
-    description:
-      "Para probar el formato antes de comprometerte a un retainer — un lote de contenido, sin permanencia.",
-    features: [
-      "1 día de grabación",
-      "6 clips verticales editados",
-      "Guion y dirección incluidos",
-      "Entrega en 7 días hábiles",
-    ],
-    highlighted: false,
+    name: "Madness Clean",
+    description: "Limpieza profesional · Sitio en línea publicado",
+    url: "https://www.madnessclean.com.mx",
   },
   {
-    name: "Starter",
-    price: "$6,995",
-    cadence: "por mes",
+    name: "Manolo's Cuidado Capilar",
+    description: "Cuidado capilar · Sitio en línea publicado",
+    url: "https://www.manoloscuidadocapilar.com",
+  },
+];
+
+type Tier = {
+  name: string;
+  price: string;
+  description?: string;
+  features: string[];
+  effort: string;
+  highlighted?: boolean;
+};
+
+const TIERS: Tier[] = [
+  {
+    name: "Catálogo Digitalizado",
+    price: "$9,900",
     description:
-      "Negocios que empiezan a construir presencia constante — cadencia mensual, sin saturar el equipo interno.",
+      "Esto se ofrece a aquellos clientes que todavía no cuentan con un catalogo con fotos de producto profesionales.",
     features: [
-      "1 día de grabación al mes",
-      "8 clips verticales editados",
-      "Guion y dirección incluidos",
-      "Publicación asistida",
+      "Foto de producto (Cotizado para 50 productos)",
+      "Diseño Editorial incluído",
+      "Codificación",
+      "Presentación en PDF",
     ],
-    highlighted: false,
+    effort: "20 horas",
   },
   {
-    name: "Growth",
-    price: "$9,995",
-    cadence: "por mes",
+    name: "One Time sesion",
+    price: "$14,900",
     description:
-      "El plan más elegido — volumen suficiente para sostener una cadencia semanal real de contenido nuevo.",
+      "Es una sesión de 4 horas en la que se filma previa aprobación de storyboard y formato de producción. El compromiso es generar al menos 20 clips editados y producidos para su publicación en redes sociales.",
     features: [
-      "2 días de grabación al mes",
-      "14 clips verticales editados",
-      "Guion y dirección incluidos",
-      "Reporte mensual de desempeño",
-      "Tracking de conversiones (GTM/GA4)",
+      "La entrega es en 5 días hábiles.",
+      "El material se entrega en un dispositivo de almacenamiento.",
+      "No está incluída la administración de las redes sociales del cliente.",
     ],
-    highlighted: true,
+    effort: "30 horas",
   },
   {
-    name: "Business",
-    price: "$13,995",
-    cadence: "por mes",
+    name: "Twice a Month",
+    price: "$24,900",
     description:
-      "Negocios con varias líneas de producto o ubicaciones que necesitan cobertura de contenido más amplia.",
+      "Incluye una sesión de 4 horas quincenal en la que se filma previa aprobación de storyboard y formato de producción. El compromiso es generar al menos 40 clips editados y producidos para su publicación en redes sociales.",
     features: [
-      "3 días de grabación al mes",
-      "20+ clips verticales editados",
-      "Guion y dirección incluidos",
-      "Reporte mensual de desempeño",
-      "Tracking de conversiones (GTM/GA4)",
-      "Prioridad de agenda",
+      "La entrega es en 10 días hábiles.",
+      "El material se entrega en un dispositivo de almacenamiento.",
+      "No está incluída la administración de las redes sociales del cliente.",
     ],
-    highlighted: false,
+    effort: "50 horas",
+  },
+  {
+    name: "Website",
+    price: "$12,900",
+    features: [
+      "Incluye Dominio por un año y servicio de Hosting y correo institucional.",
+      "Incluye una Landing Page funcional con formulario e integración con WhatsApp.",
+    ],
+    effort: "25 horas",
   },
 ];
 
 const FAQ_ITEMS = [
   {
-    question: "¿Por qué hay cupo limitado?",
+    question: "¿Los precios ya incluyen IVA?",
     answer:
-      "Porque trabajo solo, sin equipo de producción detrás. Eso es lo que me permite mantener el nivel de dirección y edición en cada clip — pero también significa que solo puedo sostener un número limitado de clientes activos al mismo tiempo.",
+      "No. Los cuatro precios son antes de impuestos: $9,900, $14,900, $24,900 y $12,900 más IVA. Lo digo aquí para que el número que ves sea el número que negocias, y la factura no traiga sorpresas.",
   },
   {
-    question: "¿Puedo cancelar cuando quiera?",
+    question: "¿Qué es la estimación de esfuerzo?",
     answer:
-      "Sí, es un retainer mes a mes, no un contrato forzoso. Te pido aviso con anticipación para no dejar un mes de grabación a medias, pero no hay penalización por cancelar.",
+      "Las horas de trabajo real que lleva cada servicio: 20 en el catálogo, 30 en la sesión única, 50 en la cadencia quincenal, 25 en el sitio web. La pongo a la vista porque el precio no sale de un tabulador — sale del tiempo que cuesta hacerlo bien.",
   },
   {
-    question: "¿Necesito ya tener un sitio o catálogo antes de contratar contenido?",
+    question: "¿Twice a Month es un compromiso recurrente?",
     answer:
-      "No es obligatorio, pero sí recomendable — el contenido funciona como el tráfico de entrada; sin un lugar claro a donde llegue ese tráfico (tu catálogo, sitio o tienda), pierdes buena parte de la conversión. Si aún no tienes presencia digital, empieza ahí.",
+      "Sí, es mensual recurrente: una sesión de 4 horas cada quincena y al menos 40 clips editados y producidos, con entrega en 10 días hábiles. Cada sesión se filma previa aprobación de storyboard y formato de producción, así que nunca grabas a ciegas.",
+  },
+  {
+    question: "¿Publican el contenido en mis redes?",
+    answer:
+      "No. El material se entrega editado y producido en un dispositivo de almacenamiento, listo para subir. La administración de tus redes sociales no está incluida en ninguno de los cuatro servicios.",
   },
 ];
 
 export default function ContenidoPage() {
   return (
-    <div className="flex flex-col flex-1">
-      <SiteNav />
-
+    <>
       <section className="border-b border-border">
-        <div className="mx-auto max-w-3xl px-6 pb-16 pt-16 md:pt-24">
-          <span className="mb-6 inline-flex items-center gap-2 rounded-full border border-border px-4 py-1.5 text-xs font-medium uppercase tracking-wider text-muted">
-            Capa 2 · Retainer mensual · Cupo limitado
+        <div className="mx-auto max-w-[1100px] px-[clamp(18px,4vw,56px)] pb-16 pt-16 md:pt-24">
+          <span className="mb-6 inline-flex items-center gap-2 rounded-[2px] border border-border px-4 py-1.5 text-[11.5px] font-semibold uppercase tracking-[0.16em] text-muted">
+            Cuatro servicios · Precio fijo · Horas contadas
           </span>
-          <h1 className="max-w-2xl font-display text-4xl font-bold leading-[1.05] tracking-tight md:text-6xl">
-            Contenido que hace que no dejen de llegar.
+          <h1 className="max-w-2xl font-display text-[clamp(34px,6.4vw,94px)] font-bold leading-[0.96] tracking-[-0.04em]">
+            Aquí está el precio.
+            <br />Y exactamente <span className="text-accent">qué recibes.</span>
           </h1>
-          <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted">
-            Un retainer mensual de video vertical, dirigido y editado por mí
-            — sin equipo, sin plantillas genéricas. Cupo limitado porque el
-            nivel de atención por cliente es lo que hace que funcione.
+          <p className="mt-6 max-w-xl text-[clamp(16px,1.35vw,20px)] leading-[1.55] text-muted">
+            Cuatro servicios con precio en la mesa y horas estimadas: foto de
+            producto, sesión de clips, cadencia quincenal y sitio web. Eliges
+            el que tu negocio necesita hoy y sabes qué se entrega, cuándo y
+            cuánto cuesta antes de firmar.
           </p>
         </div>
       </section>
 
-      <section className="border-b border-border bg-surface">
-        <div className="mx-auto max-w-6xl px-6 py-16">
-          <h2 className="max-w-xl font-display text-3xl font-bold tracking-tight md:text-4xl">
+      {/* Así se ve */}
+      <Reveal as="section" className="border-b border-border bg-surface">
+        <div className="mx-auto max-w-[1400px] px-[clamp(18px,4vw,56px)] py-[clamp(48px,6vw,100px)]">
+          <h2 className="max-w-xl font-display text-[clamp(28px,3.4vw,50px)] font-bold tracking-[-0.03em]">
             Así se ve
           </h2>
-          <p className="mt-4 max-w-xl leading-relaxed text-muted">
-            Dos clientes reales, dos industrias distintas. El formato se
-            adapta al negocio, no al revés.
-          </p>
           <div className="mt-12 space-y-16">
             {CLIENTS.map((client, clientIndex) => (
               <div key={client.name}>
-                <h3 className="font-display text-xl font-bold tracking-tight">
+                <h3 className="font-display text-[21px] font-bold tracking-[-0.02em]">
                   {client.name}
                 </h3>
-                <p className="mt-2 max-w-xl leading-relaxed text-muted">
+                <p className="mt-2 max-w-xl text-[15px] leading-[1.6] text-muted">
                   {client.description}
                 </p>
+                <a
+                  href={client.tiktokUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-2 inline-block text-sm font-semibold text-accent"
+                >
+                  Ver en TikTok →
+                </a>
                 <div className="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-3">
                   {client.videoIds.map((videoId, videoIndex) => (
                     <TikTokEmbed
@@ -166,73 +187,138 @@ export default function ContenidoPage() {
             ))}
           </div>
         </div>
-      </section>
+      </Reveal>
 
-      <section className="border-b border-border">
-        <div className="mx-auto grid max-w-6xl gap-6 px-6 py-16 md:grid-cols-2 lg:grid-cols-4">
-          {TIERS.map((tier) => (
-            <div
-              key={tier.name}
-              className={`flex flex-col rounded-2xl border p-7 ${
-                tier.highlighted
-                  ? "border-accent bg-surface-2"
-                  : "border-border bg-surface-2/40"
-              }`}
-            >
-              {tier.highlighted && (
-                <span className="mb-3 w-fit rounded-full bg-accent px-3 py-1 text-xs font-semibold text-accent-ink">
-                  Más elegido
-                </span>
-              )}
-              <h3 className="font-display text-xl font-bold tracking-tight">
-                {tier.name}
-              </h3>
-              <p className="mt-1 font-display text-2xl font-bold text-accent">
-                {tier.price}
-              </p>
-              <p className="text-xs uppercase tracking-wider text-muted">
-                {tier.cadence}
-              </p>
-              <p className="mt-4 text-sm leading-relaxed text-muted">
-                {tier.description}
-              </p>
-              <ul className="mt-6 space-y-2.5 text-sm leading-relaxed text-muted">
-                {tier.features.map((feature) => (
-                  <li key={feature} className="flex gap-2">
-                    <span className="text-accent">✓</span>
-                    <span>{feature}</span>
-                  </li>
-                ))}
-              </ul>
+      {/* Sitios en línea */}
+      <Reveal as="section" className="border-b border-border">
+        <div className="mx-auto max-w-[1400px] px-[clamp(18px,4vw,56px)] py-[clamp(48px,6vw,100px)]">
+          <h2 className="max-w-xl font-display text-[clamp(28px,3.4vw,50px)] font-bold tracking-[-0.03em]">
+            Sitios en línea
+          </h2>
+          <div className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-2">
+            {SITES.map((site) => (
               <a
-                href="mailto:hola@tunegocioenclips.com"
-                className="mt-8 rounded-full bg-accent px-5 py-3 text-center text-sm font-semibold text-accent-ink transition-transform hover:scale-[1.03]"
+                key={site.name}
+                href={site.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group block overflow-hidden rounded-[2px] border border-border bg-surface transition-[transform,border-color] hover:-translate-y-[3px] hover:border-numeral-dim"
               >
-                Reservar cupo
+                <div className="flex items-center gap-2 border-b border-border bg-surface-2 px-4 py-2.5">
+                  <span className="flex gap-1.5">
+                    <span className="h-[9px] w-[9px] rounded-full bg-numeral-dim" />
+                    <span className="h-[9px] w-[9px] rounded-full bg-numeral-dim" />
+                    <span className="h-[9px] w-[9px] rounded-full bg-numeral-dim" />
+                  </span>
+                  <span className="ml-2 flex-1 truncate rounded-[2px] border border-border bg-background px-3 py-1 text-xs text-muted">
+                    {site.url.replace(/^https?:\/\//, "")}
+                  </span>
+                </div>
+                <div className="p-6">
+                  <h3 className="font-display text-[clamp(24px,2.4vw,34px)] font-bold tracking-tight">
+                    {site.name}
+                  </h3>
+                  <p className="mt-2 text-sm text-muted">
+                    {site.description}
+                  </p>
+                  <span className="mt-4 inline-block text-sm font-semibold text-accent">
+                    Ver sitio →
+                  </span>
+                </div>
               </a>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
-      </section>
+      </Reveal>
 
-      <section className="border-b border-border bg-surface">
-        <div className="mx-auto grid max-w-4xl gap-6 px-6 py-16 md:grid-cols-2">
-          <div className="rounded-2xl border border-accent/30 bg-surface-2 p-8">
+      {/* Precios */}
+      <Reveal as="section" className="border-b border-border bg-surface">
+        <div className="mx-auto max-w-[1400px] px-[clamp(18px,4vw,56px)] py-[clamp(48px,6vw,100px)]">
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {TIERS.map((tier) => (
+              <div
+                key={tier.name}
+                className={`relative flex flex-col rounded-[2px] border p-[28px_26px_26px] transition-transform hover:-translate-y-[3px] ${
+                  tier.highlighted
+                    ? "border-accent bg-surface-2"
+                    : "border-border bg-card-muted"
+                }`}
+              >
+                {tier.highlighted && (
+                  <span className="absolute -top-[11px] left-[22px] w-fit rounded-[2px] bg-accent px-3 py-1 text-xs font-semibold text-accent-ink">
+                    Más elegido
+                  </span>
+                )}
+                <h3 className="font-display text-[21px] font-bold tracking-[-0.02em]">
+                  {tier.name}
+                </h3>
+                <p className="mt-2 font-display text-[32px] font-bold tracking-[-0.03em] text-accent">
+                  {tier.price}
+                </p>
+                <p className="text-[11px] uppercase tracking-[0.1em] text-muted">
+                  + IVA
+                </p>
+                {tier.description && (
+                  <p className="mt-4 text-[14.5px] leading-[1.6] text-muted">
+                    {tier.description}
+                  </p>
+                )}
+                <ul className="mt-6 space-y-2.5 text-[14.5px] leading-[1.6] text-muted">
+                  {tier.features.map((feature) => (
+                    <li key={feature} className="flex gap-2">
+                      <span className="text-accent">✓</span>
+                      <span>{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+                <p className="mt-6 border-t border-border pt-4 text-xs text-muted" style={{ marginTop: "auto" }}>
+                  Esfuerzo estimado: {tier.effort}
+                </p>
+                <a
+                  href="mailto:hola@tunegocioenclips.com"
+                  className="mt-6 rounded-[2px] bg-accent px-5 py-3 text-center text-sm font-semibold text-accent-ink transition-transform hover:scale-[1.01]"
+                >
+                  Solicitar cotización
+                </a>
+              </div>
+            ))}
+          </div>
+
+          {/* Nota aclaratoria */}
+          <div className="mt-12 border-l-2 border-accent bg-card-muted p-6">
+            <span className="text-[11.5px] font-semibold uppercase tracking-[0.16em] text-accent">
+              Nota aclaratoria
+            </span>
+            <p className="mt-3 text-[15px] leading-[1.6] text-muted">
+              El servicio no incluye le renta del estudio, la filmación se
+              lleva a cabo en las instalaciones del cliente, con el reto y
+              adaptaciones que esto representa.
+            </p>
+            <p className="mt-3 text-[15px] leading-[1.6] text-muted">
+              La tienda en línea no está en esta lista: se cotiza aparte,
+              según tu inventario y tu capacidad real de cumplir pedidos.
+            </p>
+          </div>
+        </div>
+      </Reveal>
+
+      {/* Cross-links */}
+      <Reveal as="section" className="border-b border-border">
+        <div className="mx-auto grid max-w-[1400px] grid-cols-1 gap-6 px-[clamp(18px,4vw,56px)] py-[clamp(48px,6vw,100px)] sm:grid-cols-2">
+          <div className="rounded-[2px] border border-accent bg-surface p-8">
             <p className="font-display text-lg font-bold text-foreground">
-              ¿Todavía no tienes dónde recibir a esa gente nueva?
+              Los clips llenan el embudo. El sitio lo cierra.
             </p>
             <p className="mt-3 leading-relaxed text-muted">
-              El contenido llena el embudo — pero necesitas un catálogo o
-              sitio donde esa gente aterrice y confíe.
+              Si todavía no tienes dónde aterrizar a esa gente, el servicio de
+              Website está en esta misma página — dominio, hosting, correo y
+              landing con WhatsApp.
             </p>
-            <Link
-              href="/presencia"
-              className="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-accent"
-            >
-              Ver planes de presencia digital →
-            </Link>
+            <span className="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-accent">
+              Ver el servicio de Website →
+            </span>
           </div>
-          <div className="rounded-2xl border border-border bg-surface-2/40 p-8">
+          <div className="rounded-[2px] border border-border bg-surface p-8">
             <p className="font-display text-lg font-bold text-foreground">
               ¿Tu proyecto pide más que un clip vertical?
             </p>
@@ -248,11 +334,9 @@ export default function ContenidoPage() {
             </Link>
           </div>
         </div>
-      </section>
+      </Reveal>
 
       <Faq items={FAQ_ITEMS} />
-
-      <SiteFooter />
-    </div>
+    </>
   );
 }

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { SiteNav, SiteFooter } from "@/components/site-chrome";
+import { Reveal } from "@/components/interactions";
+import { ReelPlayer } from "@/components/reel-player";
 
 export const metadata: Metadata = {
   title: "Producción — Tu negocio en Clips",
@@ -22,77 +23,58 @@ const FILM_GEAR = ["ARRI Alexa", "Steadicam", "Cabezales O'Connor"];
 
 export default function ProduccionPage() {
   return (
-    <div className="flex flex-col flex-1">
-      <SiteNav />
-
-      <section className="border-b border-border">
-        <div className="mx-auto grid max-w-6xl gap-10 px-6 pb-16 pt-16 md:grid-cols-[1.2fr_1fr] md:items-center md:pt-24">
-          <div>
-            <span className="mb-6 inline-flex items-center gap-2 rounded-full border border-border px-4 py-1.5 text-xs font-medium uppercase tracking-wider text-muted">
-              Capacidad adicional · Cotización por proyecto
-            </span>
-            <h1 className="max-w-2xl font-display text-4xl font-bold leading-[1.05] tracking-tight md:text-6xl">
-              Cuando tu proyecto necesita más que un clip vertical.
-            </h1>
-            <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted">
-              Esto no reemplaza tu retainer de Contenido — lo complementa
-              cuando el alcance pide otro nivel: comerciales, video
-              institucional, producciones de mayor volumen o cámara en
-              movimiento. Para eso, traigo a un aliado con créditos reales en
-              cine y streaming, no solo experiencia con redes sociales.
-            </p>
-          </div>
-          <div className="relative aspect-[4/5] w-full overflow-hidden rounded-3xl bg-surface">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="/hector-church-photo.jpg"
-              alt="Hector Flores operando cámara con Steadicam dentro de un templo, foto en blanco y negro."
-              className="h-full w-full object-cover grayscale"
-            />
-          </div>
+    <>
+      <section className="relative grid min-h-[min(84vh,820px)] grid-cols-1 gap-0 overflow-hidden border-b border-border md:grid-cols-[minmax(0,1.25fr)_clamp(240px,34%,540px)] md:items-center">
+        <div className="order-1 flex flex-col justify-center px-[clamp(18px,4vw,56px)] py-10 md:order-1 md:py-[clamp(48px,8vw,120px)]">
+          <span className="mb-6 inline-flex w-fit items-center gap-2 rounded-[2px] border border-border px-4 py-1.5 text-[11.5px] font-semibold uppercase tracking-[0.16em] text-muted">
+            Capacidad adicional · Cotización por proyecto
+          </span>
+          <h1 className="max-w-2xl font-display text-[clamp(34px,6.4vw,94px)] font-bold leading-[0.96] tracking-[-0.04em]">
+            Cuando tu proyecto
+            <br />
+            necesita <span className="text-accent">más que un clip vertical.</span>
+          </h1>
+          <p className="mt-6 max-w-xl text-[clamp(16px,1.35vw,20px)] leading-[1.55] text-muted">
+            Esto no reemplaza tu retainer de Contenido — lo complementa
+            cuando el alcance pide otro nivel: comerciales, video
+            institucional, producciones de mayor volumen o cámara en
+            movimiento. Para eso entra un socio dedicado al cine profesional,
+            con créditos reales en cine y streaming, no solo experiencia con
+            redes sociales.
+          </p>
+        </div>
+        <div className="relative order-0 h-[62vw] max-h-[400px] min-h-[240px] overflow-hidden md:order-2 md:h-full md:max-h-none">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/hector-church-photo.jpg"
+            alt="Héctor Flores operando cámara con Steadicam dentro de un templo, foto en blanco y negro."
+            className="h-full w-full object-cover grayscale"
+          />
+          <span className="mark-in absolute right-4 top-4 h-[26px] w-[26px] border-r-2 border-t-2 border-accent" />
+          <span className="mark-in absolute bottom-4 right-4 h-[26px] w-[26px] border-b-2 border-r-2 border-accent" />
         </div>
       </section>
 
-      <section className="border-b border-border bg-surface">
-        <div className="mx-auto max-w-6xl px-6 py-20">
-          <span className="mb-6 inline-flex items-center gap-2 rounded-full border border-border px-4 py-1.5 text-xs font-medium uppercase tracking-wider text-muted">
-            El aliado
+      <Reveal as="section" className="border-b border-border bg-surface">
+        <div className="mx-auto max-w-[1200px] px-[clamp(18px,4vw,56px)] py-[clamp(48px,6vw,100px)]">
+          <span className="mb-6 inline-flex items-center gap-2 rounded-[2px] border border-border px-4 py-1.5 text-[11.5px] font-semibold uppercase tracking-[0.16em] text-muted">
+            El Artista
           </span>
-          <h2 className="max-w-2xl font-display text-3xl font-bold tracking-tight md:text-4xl">
-            Hector Flores — Operador de Steadicam y Cámara
+          <h2 className="max-w-2xl font-display text-[clamp(28px,3.4vw,50px)] font-bold tracking-[-0.03em]">
+            Héctor Flores — Screenplay Director &amp; Steadycam
           </h2>
-          <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted">
+          <p className="mt-6 max-w-2xl text-[clamp(16px,1.3vw,19.5px)] leading-[1.62] text-muted">
             Acreditado en el departamento de cámara de producciones reales
             para Netflix, HBO y estudios de Hollywood — no es un freelancer
             con cámara de redes, es alguien que ha operado en sets
             profesionales, con el equipo que eso exige.
           </p>
 
-          <div className="mt-10 overflow-hidden rounded-2xl border border-border">
-            <div className="relative aspect-video w-full">
-              <iframe
-                src="https://www.youtube.com/embed/6FFh1Evi37o"
-                title="Reel de cinematografía — Hector Flores"
-                className="absolute inset-0 h-full w-full"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowFullScreen
-                loading="lazy"
-              />
-            </div>
-          </div>
-
-          <div className="mt-10 overflow-hidden rounded-2xl border border-border">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="/hector-credits-image.jpg"
-              alt="Créditos de departamento de cámara de Hector Flores: Narcos México, Elysium, Radical, Sr. Ávila, No Tengo Miedo, Rescate Imposible, Colosio, Camino a Marte y más."
-              className="w-full"
-            />
-          </div>
+          <ReelPlayer />
 
           <div className="mt-10 grid gap-10 sm:grid-cols-2">
             <div>
-              <p className="font-display text-sm font-bold uppercase tracking-wider text-muted">
+              <p className="border-b border-border pb-3 text-[13px] font-bold uppercase tracking-wider text-muted">
                 Créditos de cámara
               </p>
               <ul className="mt-4 space-y-2 text-muted">
@@ -105,7 +87,7 @@ export default function ProduccionPage() {
               </ul>
             </div>
             <div>
-              <p className="font-display text-sm font-bold uppercase tracking-wider text-muted">
+              <p className="border-b border-border pb-3 text-[13px] font-bold uppercase tracking-wider text-muted">
                 Equipo de cine
               </p>
               <ul className="mt-4 space-y-2 text-muted">
@@ -119,12 +101,13 @@ export default function ProduccionPage() {
             </div>
           </div>
 
-          <div className="mt-10 flex items-center gap-5 rounded-2xl border border-border bg-surface-2/40 p-5">
+          <div className="mt-10 flex items-center gap-5 rounded-[2px] border border-border bg-surface-2 p-5">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/chimino-logo.png"
               alt="Logo de Chimino Films"
-              className="h-20 w-20 shrink-0 rounded-2xl sm:h-24 sm:w-24"
+              className="h-20 w-20 shrink-0 object-contain sm:h-24 sm:w-24"
+              style={{ width: "clamp(140px,14vw,190px)", height: "auto" }}
             />
             <p className="text-sm leading-relaxed text-muted sm:text-base">
               Alex y Héctor también co-dirigen y producen juntos{" "}
@@ -137,29 +120,29 @@ export default function ProduccionPage() {
             </p>
           </div>
         </div>
-      </section>
+      </Reveal>
 
-      <section className="border-b border-border">
-        <div className="mx-auto max-w-3xl px-6 py-20">
-          <h2 className="font-display text-2xl font-bold tracking-tight">
-            Qué cambia cuando entra Hector
+      <Reveal as="section" className="border-b border-border">
+        <div className="mx-auto max-w-[900px] px-[clamp(18px,4vw,56px)] py-[clamp(48px,6vw,100px)]">
+          <h2 className="font-display text-[clamp(28px,3.4vw,50px)] font-bold tracking-[-0.03em]">
+            Qué cambia cuando entra Héctor
           </h2>
-          <p className="mt-4 text-lg leading-relaxed text-muted">
+          <p className="mt-4 text-[clamp(16px,1.3vw,19.5px)] leading-[1.62] text-muted">
             Cámara en movimiento fluida (Steadicam), sensores y ópticas de
-            cine (ARRI Alexa) y control de encuadre que viene de años
-            operando en sets con presupuesto y exigencia real — el tipo de
-            producción que separa un anuncio que se ve como anuncio de uno
-            que se ve como contenido de plataforma o cine.
+            cine (ARRI Alexa) y control de encuadre que viene de años operando
+            en sets con presupuesto y exigencia real — el tipo de producción
+            que separa un anuncio que se ve como anuncio de uno que se ve
+            como contenido de plataforma o cine.
           </p>
         </div>
-      </section>
+      </Reveal>
 
-      <section className="border-b border-border bg-surface">
-        <div className="mx-auto max-w-3xl px-6 py-20">
-          <span className="mb-6 inline-flex items-center gap-2 rounded-full border border-border px-4 py-1.5 text-xs font-medium uppercase tracking-wider text-muted">
+      <Reveal as="section" className="border-b border-border bg-surface">
+        <div className="mx-auto max-w-[900px] px-[clamp(18px,4vw,56px)] py-[clamp(48px,6vw,100px)]">
+          <span className="mb-6 inline-flex items-center gap-2 text-[11.5px] font-semibold uppercase tracking-[0.16em] text-accent">
             ¿Cuándo tiene sentido?
           </span>
-          <p className="text-lg leading-relaxed text-muted">
+          <p className="text-[clamp(16px,1.3vw,19.5px)] leading-[1.62] text-muted">
             Cuando el proyecto sale del formato de clip vertical recurrente:
             un comercial, un video institucional, una producción de mayor
             volumen, una toma que necesita cámara en movimiento en vez de un
@@ -169,18 +152,16 @@ export default function ProduccionPage() {
           </p>
           <a
             href="mailto:hola@tunegocioenclips.com?subject=Cotización%20de%20producción"
-            className="mt-10 inline-flex rounded-full bg-accent px-7 py-3.5 text-sm font-semibold text-accent-ink transition-transform hover:scale-[1.03]"
+            className="mt-10 inline-flex rounded-[2px] bg-accent px-7 py-3.5 text-sm font-semibold text-accent-ink transition-transform hover:scale-[1.02]"
           >
-            Cotiza tu proyecto
+            Cotiza tu proyecto →
           </a>
           <p className="mt-4 text-sm text-muted">
             Cada producción de este tipo se cotiza según alcance — no hay un
             precio de lista.
           </p>
         </div>
-      </section>
-
-      <SiteFooter />
-    </div>
+      </Reveal>
+    </>
   );
 }
