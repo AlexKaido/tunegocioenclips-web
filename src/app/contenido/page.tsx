@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Faq } from "@/components/faq";
 import { TikTokEmbed } from "@/components/tiktok-embed";
 import { Reveal } from "@/components/interactions";
+import { SitesCarousel } from "@/components/sites-carousel";
 
 export const metadata: Metadata = {
   title: "Servicios y precios — Tu negocio en Clips",
@@ -37,14 +38,30 @@ const CLIENTS = [
 
 const SITES = [
   {
+    name: "Vital Green",
+    description:
+      "Tienda en línea de desodorantes de cristal — catálogo, carrito y checkout funcionando de verdad.",
+    url: "https://www.vitalgreen.co",
+    image: "/site-vitalgreen.jpg",
+  },
+  {
+    name: "Megalimpio Xochimilco",
+    description:
+      "Venta mayorista de químicos de limpieza — catálogo con precio por litro, claro para cerrar por WhatsApp.",
+    url: "https://www.megalimpioxochimilco.com",
+    image: "/site-megalimpioxochimilco.jpg",
+  },
+  {
     name: "Madness Clean",
-    description: "Limpieza profesional · Sitio en línea publicado",
+    description: "Limpieza profesional · Sitio en línea publicado.",
     url: "https://www.madnessclean.com.mx",
+    image: "/site-madnessclean.jpg",
   },
   {
     name: "Manolo's Cuidado Capilar",
-    description: "Cuidado capilar · Sitio en línea publicado",
+    description: "Cuidado capilar · Sitio en línea publicado.",
     url: "https://www.manoloscuidadocapilar.com",
+    image: "/site-manoloscuidadocapilar.jpg",
   },
 ];
 
@@ -150,8 +167,28 @@ export default function ContenidoPage() {
         </div>
       </section>
 
-      {/* Así se ve */}
+      {/* Sitios en línea — primero: es la puerta de entrada más fácil de contratar */}
       <Reveal as="section" className="border-b border-border bg-surface">
+        <div className="mx-auto max-w-[1400px] px-[clamp(18px,4vw,56px)] py-[clamp(56px,7vw,120px)]">
+          <span className="mb-6 inline-flex items-center gap-2 rounded-[2px] border border-border px-4 py-1.5 text-[11.5px] font-semibold uppercase tracking-[0.16em] text-accent">
+            Sitios publicados · Clientes reales
+          </span>
+          <h2 className="max-w-2xl font-display text-[clamp(32px,4.2vw,64px)] font-bold leading-[1.02] tracking-[-0.03em]">
+            Sitios en línea
+          </h2>
+          <p className="mt-5 max-w-xl text-[clamp(16px,1.3vw,19px)] leading-[1.6] text-muted">
+            Antes de los clips, esto: un sitio real, publicado, generando
+            ventas o citas hoy mismo. Es la puerta de entrada más fácil —
+            navega los cuatro ejemplos.
+          </p>
+          <div className="mt-12">
+            <SitesCarousel sites={SITES} />
+          </div>
+        </div>
+      </Reveal>
+
+      {/* Así se ve */}
+      <Reveal as="section" className="border-b border-border">
         <div className="mx-auto max-w-[1400px] px-[clamp(18px,4vw,56px)] py-[clamp(48px,6vw,100px)]">
           <h2 className="max-w-xl font-display text-[clamp(28px,3.4vw,50px)] font-bold tracking-[-0.03em]">
             Así se ve
@@ -184,48 +221,6 @@ export default function ContenidoPage() {
                   ))}
                 </div>
               </div>
-            ))}
-          </div>
-        </div>
-      </Reveal>
-
-      {/* Sitios en línea */}
-      <Reveal as="section" className="border-b border-border">
-        <div className="mx-auto max-w-[1400px] px-[clamp(18px,4vw,56px)] py-[clamp(48px,6vw,100px)]">
-          <h2 className="max-w-xl font-display text-[clamp(28px,3.4vw,50px)] font-bold tracking-[-0.03em]">
-            Sitios en línea
-          </h2>
-          <div className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-2">
-            {SITES.map((site) => (
-              <a
-                key={site.name}
-                href={site.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group block overflow-hidden rounded-[2px] border border-border bg-surface transition-[transform,border-color] hover:-translate-y-[3px] hover:border-numeral-dim"
-              >
-                <div className="flex items-center gap-2 border-b border-border bg-surface-2 px-4 py-2.5">
-                  <span className="flex gap-1.5">
-                    <span className="h-[9px] w-[9px] rounded-full bg-numeral-dim" />
-                    <span className="h-[9px] w-[9px] rounded-full bg-numeral-dim" />
-                    <span className="h-[9px] w-[9px] rounded-full bg-numeral-dim" />
-                  </span>
-                  <span className="ml-2 flex-1 truncate rounded-[2px] border border-border bg-background px-3 py-1 text-xs text-muted">
-                    {site.url.replace(/^https?:\/\//, "")}
-                  </span>
-                </div>
-                <div className="p-6">
-                  <h3 className="font-display text-[clamp(24px,2.4vw,34px)] font-bold tracking-tight">
-                    {site.name}
-                  </h3>
-                  <p className="mt-2 text-sm text-muted">
-                    {site.description}
-                  </p>
-                  <span className="mt-4 inline-block text-sm font-semibold text-accent">
-                    Ver sitio →
-                  </span>
-                </div>
-              </a>
             ))}
           </div>
         </div>
