@@ -4,6 +4,7 @@ import { Faq } from "@/components/faq";
 import { TikTokEmbed } from "@/components/tiktok-embed";
 import { Reveal } from "@/components/interactions";
 import { SitesCarousel } from "@/components/sites-carousel";
+import { PodcastPlayer } from "@/components/podcast-player";
 
 export const metadata: Metadata = {
   title: "Servicios y precios — Tu negocio en Clips",
@@ -222,6 +223,37 @@ export default function ContenidoPage() {
                 </div>
               </div>
             ))}
+          </div>
+        </div>
+      </Reveal>
+
+      {/* Podcast */}
+      <Reveal as="section" className="border-b border-border">
+        <div className="mx-auto max-w-[1100px] px-[clamp(18px,4vw,56px)] py-[clamp(48px,6vw,100px)]">
+          <span className="mb-6 inline-flex items-center gap-2 rounded-[2px] border border-border px-4 py-1.5 text-[11.5px] font-semibold uppercase tracking-[0.16em] text-muted">
+            Formato adicional · Podcast en video
+          </span>
+          <h2 className="max-w-xl font-display text-[clamp(28px,3.4vw,50px)] font-bold tracking-[-0.03em]">
+            También hacemos podcast
+          </h2>
+          <p className="mt-4 max-w-2xl text-[15px] leading-[1.6] text-muted">
+            Cuando el tema pide más que un clip vertical, producimos episodios
+            de podcast en video — conversación larga, con la misma cámara y
+            edición que el resto del contenido. Ejemplo real:{" "}
+            <span className="font-semibold text-foreground">
+              &ldquo;Hablemos de Cabello&rdquo;
+            </span>
+            , el podcast de Manolo&apos;s Salón, con episodios sobre mitos,
+            ciencia y marketing del cuidado capilar.
+          </p>
+          <div className="mt-10">
+            <PodcastPlayer
+              videoId="Zz2a6ZLRCv0"
+              listId="UUCShD0yUimHN41vzhV5C6MQ"
+              title="Capítulo 8. Hablemos de Cabello — El Marketing vs. La Ciencia"
+              channelLabel="Hablemos de Cabello · Manolo's Salón"
+              channelUrl="https://www.youtube.com/@manolosalon"
+            />
           </div>
         </div>
       </Reveal>
